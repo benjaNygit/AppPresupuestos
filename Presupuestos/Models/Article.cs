@@ -7,10 +7,7 @@ public partial class Article
 {
     public Guid Id { get; set; }
 
-    public string Description {
-        get { return this.Description; }
-        set { this.Description = value.Substring(100); }
-    }
+    public string Description { get; set; } = null!;
 
     public decimal Value { get; set; }
 

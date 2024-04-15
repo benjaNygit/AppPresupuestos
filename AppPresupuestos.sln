@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "AppPresupuestos.Server\Server.csproj", "{ABD3A1E7-2F39-4317-9E0F-3F4240E4F0FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server", "AppPresupuestos.Server\Server.csproj", "{ABD3A1E7-2F39-4317-9E0F-3F4240E4F0FF}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Client", "apppresupuestos.client\Client.esproj", "{B2D0701A-30A7-41CC-A975-FE2F92C9CCB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presupuestos", "Presupuestos\Presupuestos.csproj", "{1835E51A-B915-4C28-A759-7EE3331DEF62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Presupuestos", "Presupuestos\Presupuestos.csproj", "{1835E51A-B915-4C28-A759-7EE3331DEF62}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{61CC242C-FB27-4CEB-88F4-A0DEC466C860}"
 	ProjectSection(SolutionItems) = preProject

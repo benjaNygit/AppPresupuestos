@@ -2,10 +2,17 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace Presupuestos;
+namespace Presupuestos.Models;
 
 public partial class Context : DbContext
 {
+    private static Context instance;
+
+    public static Context Instance
+    {
+        get { return instance = new Context(); }
+    }
+
     public Context()
     {
     }

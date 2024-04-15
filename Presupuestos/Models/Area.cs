@@ -7,10 +7,7 @@ public partial class Area
 {
     public Guid Id { get; set; }
 
-    public string Description {
-        get { return this.Description; }
-        set { this.Description = value.Substring(50); }
-    }
+    public string Description { get; set; } = null!;
 
     public virtual ICollection<Budget> Budgets { get; set; } = new List<Budget>();
 }

@@ -9,15 +9,9 @@ public partial class BudgetAccount
 
     public Guid? BudgetAccountId { get; set; }
 
-    public int Level {
-        get { return this.Level; }
-        set { this.Level = value < 0 ? value * -1 : value; }
-    }
+    public int Level { get; set; }
 
-    public string Description {
-        get { return this.Description; }
-        set { this.Description = value.Substring(100); }
-    }
+    public string Description { get; set; } = null!;
 
     public int? NumberAccount { get; set; }
 
