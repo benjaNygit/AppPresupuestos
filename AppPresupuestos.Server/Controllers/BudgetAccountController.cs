@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Presupuestos;
 
 namespace Server.Controllers
 {
@@ -11,11 +12,17 @@ namespace Server.Controllers
         {
         }
 
-        [HttpGet(Name = "GetBudgetAccounts")]
-        public IActionResult Get()
+        [HttpGet()]
+        public ActionResult<BudgetAccount> Get()
         {
             List<Presupuestos.BudgetAccount> list = Presupuestos.BudgetAccount.GetAll();
+            return StatusCode(StatusCodes.Status200OK, list);
+        }
 
+        [HttpGet("{level}")]
+        public ActionResult<BudgetAccount> Get(int level)
+        {
+            List<Presupuestos.BudgetAccount> list = Presupuestos.BudgetAccount.GetLevels(level);
             return StatusCode(StatusCodes.Status200OK, list);
         }
     }

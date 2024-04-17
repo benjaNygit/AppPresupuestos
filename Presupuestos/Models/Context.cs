@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace Presupuestos.Models;
+namespace Presupuestos;
 
 public partial class Context : DbContext
 {

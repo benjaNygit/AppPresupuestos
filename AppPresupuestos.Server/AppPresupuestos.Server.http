@@ -1,6 +1,6 @@
 @AppPresupuestos.Server_HostAddress = http://localhost:5203
 
-GET {{AppPresupuestos.Server_HostAddress}}/weatherforecast/
+GET {{AppPresupuestos.Server_HostAddress}}/BudgetAccounts/
 Accept: application/json
 
 ###
