@@ -7,7 +7,7 @@ public partial class Budget
 {
     public Guid Id { get; set; }
 
-    public int NumberAccount { get; set; }
+    public decimal NumberAccount { get; set; }
 
     public decimal ValueStart { get; set; }
 

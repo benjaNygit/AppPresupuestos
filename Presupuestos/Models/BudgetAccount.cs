@@ -9,7 +9,7 @@ public partial class BudgetAccount
 
     public Guid? BudgetAccountId { get; set; }
 
-    public int Level { get; set; }
+    public decimal Level { get; set; }
 
     public string Description { get; set; } = null!;
 
