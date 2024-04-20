@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Presupuestos;
+using System.Runtime.CompilerServices;
 
 namespace Server.Controllers
 {
@@ -30,21 +31,17 @@ namespace Server.Controllers
 
         #region Post
         [HttpPost]
-        public async Task<ActionResult<Presupuestos.BudgetAccount>> Post(Presupuestos.BudgetAccount budgetAccount)
+        public ActionResult<Presupuestos.BudgetAccount> Post(Presupuestos.BudgetAccount budgetAccount)
         {
-            Presupuestos.BudgetAccount model = new Presupuestos.BudgetAccount();
-            using (Presupuestos.Context context = new Presupuestos.Context())
+            Guid id = Guid.NewGuid();
+            Presupuestos.BudgetAccount model = budgetAccount;
+            using(Presupuestos.Context context = new Presupuestos.Context())
             {
-                model = new Presupuestos.BudgetAccount
-                {
-                    Id = Guid.NewGuid(),
-                    BudgetAccountId = budgetAccount.BudgetAccountId,
-                    Level = budgetAccount.Level,
-                    Description = budgetAccount.Description
-                };
-                context.Add(model);
+                model.NumberAccount = 1;
+                context.BudgetAccounts.Add(model);
                 context.SaveChanges();
             }
+
             return StatusCode(StatusCodes.Status201Created, model);
         }
         #endregion

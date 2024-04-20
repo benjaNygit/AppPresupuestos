@@ -16,6 +16,4 @@ public partial class Article
     public decimal? Total { get; set; }
 
     public Guid BudgetId { get; set; }
-
-    public virtual Budget Budget { get; set; } = null!;
 }

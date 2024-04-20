@@ -6,7 +6,7 @@ namespace Presupuestos;
 
 public partial class Context : DbContext
 {
-    private static Context instance;
+    private static Context? instance;
 
     public static Context Instance
     {
@@ -58,18 +58,14 @@ public partial class Context : DbContext
                 .HasComputedColumnSql("([Value]*[Amount])", false)
                 .HasColumnType("decimal(29, 0)");
             entity.Property(e => e.Value).HasColumnType("decimal(18, 0)");
-
-            entity.HasOne(d => d.Budget).WithMany(p => p.Articles)
-                .HasForeignKey(d => d.BudgetId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Article_Budget");
         });
 
         modelBuilder.Entity<Budget>(entity =>
         {
+            entity.HasKey(e => new { e.Id, e.NumberAccount });
+
             entity.ToTable("Budget");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Value).HasColumnType("decimal(18, 0)");
             entity.Property(e => e.ValueStart).HasColumnType("decimal(18, 0)");
 
@@ -78,17 +74,19 @@ public partial class Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Budget_Area");
 
-            entity.HasOne(d => d.BudgetAccount).WithMany(p => p.Budgets)
-                .HasForeignKey(d => d.BudgetAccountId)
+            entity.HasOne(d => d.NumberAccountNavigation).WithMany(p => p.Budgets)
+                .HasForeignKey(d => d.NumberAccount)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Budget_Budget");
+                .HasConstraintName("FK_Budget_BudgetAccount");
         });
 
         modelBuilder.Entity<BudgetAccount>(entity =>
         {
-            entity.ToTable("BudgetAccount", tb => tb.HasTrigger("TR_NumberAccount_INSERT"));
+            entity.HasKey(e => e.NumberAccount);
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.ToTable("BudgetAccount");
+
+            entity.Property(e => e.NumberAccount).ValueGeneratedNever();
             entity.Property(e => e.Description)
                 .HasMaxLength(100)
                 .IsUnicode(false);

@@ -9,6 +9,8 @@ namespace Presupuestos
 {
     public partial class BudgetAccount
     {
+        public static BudgetAccount? Get(byte numberAccount) => Query.GetBudgetAccounts(null, numberAccount)?.FirstOrDefault<BudgetAccount>();
+
         public static List<BudgetAccount> GetAll()
         {
             return
