@@ -5,7 +5,7 @@ namespace Presupuestos;
 
 public partial class BudgetAccount
 {
-    public int NumberAccount { get; set; }
+    public decimal NumberAccount { get; set; }
 
     public Guid? BudgetAccountId { get; set; }
 

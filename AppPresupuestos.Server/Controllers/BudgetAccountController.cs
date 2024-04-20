@@ -37,7 +37,7 @@ namespace Server.Controllers
             Presupuestos.BudgetAccount model = budgetAccount;
             using(Presupuestos.Context context = new Presupuestos.Context())
             {
-                model.NumberAccount = 1;
+                model.NumberAccount = Presupuestos.BudgetAccount.GenerateNumberAccount(model);
                 context.BudgetAccounts.Add(model);
                 context.SaveChanges();
             }
