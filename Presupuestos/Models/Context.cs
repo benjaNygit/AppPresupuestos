@@ -66,6 +66,7 @@ public partial class Context : DbContext
 
             entity.ToTable("Budget");
 
+            entity.Property(e => e.NumberAccount).HasColumnType("decimal(18, 0)");
             entity.Property(e => e.Value).HasColumnType("decimal(18, 0)");
             entity.Property(e => e.ValueStart).HasColumnType("decimal(18, 0)");
 
@@ -86,10 +87,11 @@ public partial class Context : DbContext
 
             entity.ToTable("BudgetAccount");
 
-            entity.Property(e => e.NumberAccount).ValueGeneratedNever();
+            entity.Property(e => e.NumberAccount).HasColumnType("decimal(18, 0)");
             entity.Property(e => e.Description)
                 .HasMaxLength(100)
                 .IsUnicode(false);
+            entity.Property(e => e.Level).HasColumnType("decimal(2, 0)");
         });
 
         OnModelCreatingPartial(modelBuilder);
