@@ -16,7 +16,7 @@ namespace Presupuestos
                 from query in Context.Instance.BudgetAccounts select query;
         }
 
-        internal static IQueryable<BudgetAccount>? GetBudgetAccounts(int? level, int? numberAccount)
+        internal static IQueryable<BudgetAccount>? GetBudgetAccounts(byte? level, decimal? numberAccount)
         {
             if (level is not null && numberAccount is not null)
             {

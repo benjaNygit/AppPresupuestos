@@ -10,7 +10,7 @@ namespace Presupuestos
 {
     public partial class BudgetAccount
     {
-        public static BudgetAccount? Get(byte numberAccount) => Query.GetBudgetAccounts(null, numberAccount)?.FirstOrDefault<BudgetAccount>();
+        public static BudgetAccount? Get(decimal numberAccount) => Query.GetBudgetAccounts(null, numberAccount)?.FirstOrDefault<BudgetAccount>();
 
         public static decimal GenerateNumberAccount(BudgetAccount budgetAccount)
         {
@@ -36,7 +36,7 @@ namespace Presupuestos
                  ).ToList();
         }
 
-        public static List<BudgetAccount> GetAll(int level, int numberAccount)
+        public static List<BudgetAccount> GetAll(byte level, decimal numberAccount)
         {
             return (
                 from query in Query.GetBudgetAccounts(level, numberAccount)
@@ -44,7 +44,7 @@ namespace Presupuestos
                 ).ToList();
         }
 
-        public static List<BudgetAccount> GetLevels(int level)
+        public static List<BudgetAccount> GetLevels(byte level)
         {
             return (
                 from query in Query.GetBudgetAccounts(level, null)
