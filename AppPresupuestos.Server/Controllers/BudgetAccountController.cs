@@ -46,12 +46,11 @@ namespace Server.Controllers
                 Presupuestos.BudgetAccount model = budgetAccount;
                 using (Presupuestos.Context context = new Presupuestos.Context())
                 {
-                    decimal numberAccount = Presupuestos.BudgetAccount.GenerateNumberAccount(model);
-                    if (model.Number == 0)
-                        throw new Exception("Especifique el campo número");
-
+                    decimal numberAccount = Presupuestos.BudgetAccount.GenerateNumberAccount(model);                    
                     if (Presupuestos.BudgetAccount.Get(numberAccount) is not null)
                         throw new Exception(string.Format("Ya existe una cuenta presupuestaria con el número de cuenta {0}", numberAccount));
+
+                    Presupuestos.BudgetAccount.ValidateModel(budgetAccount);
                     model.Id = Guid.NewGuid();
                     model.NumberAccount = numberAccount;
                     context.BudgetAccounts.Add(model);
@@ -78,6 +77,7 @@ namespace Server.Controllers
                     if (model is null)
                         throw new Exception("Nose encontro la cuenta presupuestaria");
 
+                    Presupuestos.BudgetAccount.ValidateModel(budgetAccount);
                     model.NumberAccount = Presupuestos.BudgetAccount.GenerateNumberAccount(budgetAccount);
                     model.BudgetAccountCode = budgetAccount.BudgetAccountCode;
                     model.Level = budgetAccount.Level;

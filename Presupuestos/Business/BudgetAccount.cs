@@ -30,6 +30,15 @@ namespace Presupuestos
             }
         }
 
+        public static void ValidateModel(BudgetAccount budgetAccount)
+        {
+            if (budgetAccount.Level == 0)
+                throw new Exception("Especifique el campo Nivel");
+
+            if (budgetAccount.Number == 0)
+                throw new Exception("Especifique el campo número");
+        }
+
         public static List<BudgetAccount> GetAll(byte level, decimal numberAccount)
         {
             return (
