@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Presupuestos;
 using System.Runtime.CompilerServices;
 
@@ -52,6 +53,37 @@ namespace Server.Controllers
 
                 return StatusCode(StatusCodes.Status201Created, model);
             }catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status409Conflict, ex.Message);
+            }
+        }
+        #endregion
+
+        #region Put
+        [HttpPut("{numberAccount}")]
+        public ActionResult<Presupuestos.BudgetAccount> Put(decimal numberAccount, Presupuestos.BudgetAccount budgetAccount)
+        {
+            try
+            {
+                Presupuestos.BudgetAccount? model = Presupuestos.BudgetAccount.Get(numberAccount);
+                using (Presupuestos.Context context = new Presupuestos.Context())
+                {
+                    if (model is null)
+                        throw new Exception(string.Format("No existe la cuenta presupuestaria con el número de cuenta {0}", numberAccount));
+
+                    model.NumberAccount = Presupuestos.BudgetAccount.GenerateNumberAccount(budgetAccount);
+                    model.BudgetAccountCode = budgetAccount.BudgetAccountCode;
+                    model.Level = budgetAccount.Level;
+                    model.Number = budgetAccount.Number;
+                    model.Description = budgetAccount.Description;
+
+                    context.BudgetAccounts.Update(model);
+                    context.SaveChangesAsync();
+                }
+
+                return StatusCode(StatusCodes.Status201Created, model);
+            }
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status409Conflict, ex.Message);
             }
