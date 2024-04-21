@@ -12,6 +12,7 @@ namespace Presupuestos
     {
         public static BudgetAccount? Get(decimal numberAccount) => Query.GetBudgetAccounts(null, numberAccount)?.FirstOrDefault<BudgetAccount>();
         public static BudgetAccount? Get(Guid id) => Query.GetBudgetAccounts(id).FirstOrDefault<BudgetAccount>();
+        public static List<BudgetAccount> GetAll() => Query.GetBudgetAccounts().ToList<BudgetAccount>();
 
         public static decimal GenerateNumberAccount(BudgetAccount budgetAccount)
         {
@@ -27,11 +28,6 @@ namespace Presupuestos
             {
                 return budgetAccount.Number;
             }
-        }
-
-        public static List<BudgetAccount> GetAll()
-        {
-            return (from query in Query.GetBudgetAccounts() select query).ToList();
         }
 
         public static List<BudgetAccount> GetAll(byte level, decimal numberAccount)
