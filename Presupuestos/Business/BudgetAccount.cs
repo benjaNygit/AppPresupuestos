@@ -31,10 +31,7 @@ namespace Presupuestos
 
         public static List<BudgetAccount> GetAll()
         {
-            return
-                (from query in Query.GetBudgetAccounts()
-                 select query
-                 ).ToList();
+            return (from query in Query.GetBudgetAccounts() select query).ToList();
         }
 
         public static List<BudgetAccount> GetAll(byte level, decimal numberAccount)

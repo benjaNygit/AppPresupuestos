@@ -9,6 +9,22 @@ namespace Presupuestos
 {
     internal static class Query
     {
+        #region Area
+        internal static IQueryable<Area> GetAreas()
+        {
+            return
+                from query in Context.Instance.Areas select query;
+        }
+
+        internal static IQueryable<Area> GetAreas(Guid id)
+        {
+            return
+                from query in Context.Instance.Areas
+                where query.Id == id
+                select query;
+        }
+        #endregion
+
         #region BudgetAccount
         internal static IQueryable<BudgetAccount> GetBudgetAccounts()
         {
@@ -50,7 +66,6 @@ namespace Presupuestos
 
             return default;
         }
-
         #endregion
     }
 }
