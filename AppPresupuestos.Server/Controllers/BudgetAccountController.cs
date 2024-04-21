@@ -16,21 +16,21 @@ namespace Server.Controllers
 
         #region Get
         [HttpGet]
-        public ActionResult<BudgetAccount> Get()
+        public ActionResult<Presupuestos.BudgetAccount> Get()
         {
             List<Presupuestos.BudgetAccount> list = Presupuestos.BudgetAccount.GetAll();
             return StatusCode(StatusCodes.Status200OK, list);
         }
 
         [HttpGet("{numberAccount}")]
-        public ActionResult<BudgetAccount> Get(decimal numberAccount)
+        public ActionResult<Presupuestos.BudgetAccount> Get(decimal numberAccount)
         {
             Presupuestos.BudgetAccount? model = Presupuestos.BudgetAccount.Get(numberAccount);
             return StatusCode(StatusCodes.Status200OK, model);
         }
 
         [HttpGet("level/{level}")]
-        public ActionResult<BudgetAccount> Get(byte level)
+        public ActionResult<Presupuestos.BudgetAccount> Get(byte level)
         {
             List<Presupuestos.BudgetAccount> list = Presupuestos.BudgetAccount.GetLevels(level);
             return StatusCode(StatusCodes.Status200OK, list);
