@@ -88,7 +88,31 @@ namespace Server.Controllers
                     context.SaveChangesAsync();
                 }
 
-                return StatusCode(StatusCodes.Status201Created, model);
+                return StatusCode(StatusCodes.Status200OK, model);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status409Conflict, ex.Message);
+            }
+        }
+        #endregion
+
+        #region Delete
+        [HttpDelete("{numberAccount}")]
+        public ActionResult<Presupuestos.BudgetAccount> Delete(decimal numberAccount)
+        {
+            try
+            {
+                Presupuestos.BudgetAccount? model = Presupuestos.BudgetAccount.Get(numberAccount);
+                using (Presupuestos.Context context = new Presupuestos.Context())
+                {
+                    if (model is null)
+                        throw new Exception(string.Format("No existe una cuenta presupuestaria número {0}", numberAccount));
+
+                    context.BudgetAccounts.Remove(model);
+                    context.SaveChangesAsync();
+                    return StatusCode(StatusCodes.Status202Accepted, string.Format("Se elmino correctamente la cuenta presupuestaria número {0}", numberAccount));
+                }
             }
             catch (Exception ex)
             {
