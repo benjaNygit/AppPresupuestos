@@ -26,5 +26,21 @@ namespace Server.Controllers
             return StatusCode(StatusCodes.Status200OK, model);
         }
         #endregion
+
+        #region Post
+        [HttpPost]
+        public ActionResult<Presupuestos.Area> Post(Presupuestos.Area area)
+        {
+            try
+            {
+                Presupuestos.Area model = area;
+                model.Id = Guid.NewGuid();
+                return StatusCode(StatusCodes.Status200OK, model);
+            }catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status409Conflict, ex.Message);
+            }
+        }
+        #endregion
     }
 }
