@@ -11,6 +11,7 @@ namespace Presupuestos
     public partial class BudgetAccount
     {
         public static BudgetAccount? Get(decimal numberAccount) => Query.GetBudgetAccounts(null, numberAccount)?.FirstOrDefault<BudgetAccount>();
+        public static BudgetAccount? Get(Guid id) => Query.GetBudgetAccounts(id).FirstOrDefault<BudgetAccount>();
 
         public static decimal GenerateNumberAccount(BudgetAccount budgetAccount)
         {

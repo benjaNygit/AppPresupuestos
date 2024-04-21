@@ -45,7 +45,7 @@ namespace Server.Controllers
 
                     if (Presupuestos.BudgetAccount.Get(numberAccount) is not null)
                         throw new Exception(string.Format("Ya existe una cuenta presupuestaria con el número de cuenta {0}", numberAccount));
-
+                    model.Id = Guid.NewGuid();
                     model.NumberAccount = numberAccount;
                     context.BudgetAccounts.Add(model);
                     context.SaveChangesAsync();
@@ -60,16 +60,16 @@ namespace Server.Controllers
         #endregion
 
         #region Put
-        [HttpPut("{numberAccount}")]
-        public ActionResult<Presupuestos.BudgetAccount> Put(decimal numberAccount, Presupuestos.BudgetAccount budgetAccount)
+        [HttpPut("{id}")]
+        public ActionResult<Presupuestos.BudgetAccount> Put(Guid id, Presupuestos.BudgetAccount budgetAccount)
         {
             try
             {
-                Presupuestos.BudgetAccount? model = Presupuestos.BudgetAccount.Get(numberAccount);
+                Presupuestos.BudgetAccount? model = Presupuestos.BudgetAccount.Get(id);
                 using (Presupuestos.Context context = new Presupuestos.Context())
                 {
                     if (model is null)
-                        throw new Exception(string.Format("No existe la cuenta presupuestaria con el número de cuenta {0}", numberAccount));
+                        throw new Exception("Nose encontro la cuenta presupuestaria");
 
                     model.NumberAccount = Presupuestos.BudgetAccount.GenerateNumberAccount(budgetAccount);
                     model.BudgetAccountCode = budgetAccount.BudgetAccountCode;

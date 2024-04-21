@@ -62,10 +62,11 @@ public partial class Context : DbContext
 
         modelBuilder.Entity<Budget>(entity =>
         {
-            entity.HasKey(e => new { e.Id, e.NumberAccount });
+            entity.HasKey(e => e.Id).HasName("PK_Budget_1");
 
             entity.ToTable("Budget");
 
+            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.NumberAccount).HasColumnType("decimal(18, 0)");
             entity.Property(e => e.Value).HasColumnType("decimal(18, 0)");
             entity.Property(e => e.ValueStart).HasColumnType("decimal(18, 0)");
@@ -75,29 +76,23 @@ public partial class Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Budget_Area");
 
-            entity.HasOne(d => d.NumberAccountNavigation).WithMany(p => p.Budgets)
-                .HasForeignKey(d => d.NumberAccount)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Budget_BudgetAccount");
+            entity.HasOne(d => d.BudgetAccount).WithMany(p => p.Budgets)
+                .HasForeignKey(d => d.BudgetAccountId)
+                .HasConstraintName("FK_Budget_BudgetAccount1");
         });
 
         modelBuilder.Entity<BudgetAccount>(entity =>
         {
-            entity.HasKey(e => e.NumberAccount);
-
             entity.ToTable("BudgetAccount");
 
-            entity.Property(e => e.NumberAccount).HasColumnType("decimal(18, 0)");
+            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.BudgetAccountCode).HasColumnType("decimal(18, 0)");
             entity.Property(e => e.Description)
                 .HasMaxLength(100)
                 .IsUnicode(false);
             entity.Property(e => e.Level).HasColumnType("decimal(2, 0)");
             entity.Property(e => e.Number).HasColumnType("decimal(2, 0)");
-
-            entity.HasOne(d => d.BudgetAccountCodeNavigation).WithMany(p => p.InverseBudgetAccountCodeNavigation)
-                .HasForeignKey(d => d.BudgetAccountCode)
-                .HasConstraintName("FK_BudgetAccount_BudgetAccount");
+            entity.Property(e => e.NumberAccount).HasColumnType("decimal(18, 0)");
         });
 
         OnModelCreatingPartial(modelBuilder);

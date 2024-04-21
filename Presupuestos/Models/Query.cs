@@ -16,6 +16,14 @@ namespace Presupuestos
                 from query in Context.Instance.BudgetAccounts select query;
         }
 
+        internal static IQueryable<BudgetAccount> GetBudgetAccounts(Guid id)
+        {
+            return
+                from query in Context.Instance.BudgetAccounts
+                where query.Id == id
+                select query;
+        }
+
         internal static IQueryable<BudgetAccount>? GetBudgetAccounts(byte? level, decimal? numberAccount)
         {
             if (level is not null && numberAccount is not null)
@@ -42,6 +50,7 @@ namespace Presupuestos
 
             return default;
         }
+
         #endregion
     }
 }

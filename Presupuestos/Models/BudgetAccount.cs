@@ -5,6 +5,8 @@ namespace Presupuestos;
 
 public partial class BudgetAccount
 {
+    public Guid Id { get; set; }
+
     public decimal NumberAccount { get; set; }
 
     public decimal? BudgetAccountCode { get; set; }
@@ -15,9 +17,5 @@ public partial class BudgetAccount
 
     public string Description { get; set; } = null!;
 
-    public virtual BudgetAccount? BudgetAccountCodeNavigation { get; set; }
-
     public virtual ICollection<Budget> Budgets { get; set; } = new List<Budget>();
-
-    public virtual ICollection<BudgetAccount> InverseBudgetAccountCodeNavigation { get; set; } = new List<BudgetAccount>();
 }

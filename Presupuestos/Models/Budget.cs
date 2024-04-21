@@ -7,6 +7,8 @@ public partial class Budget
 {
     public Guid Id { get; set; }
 
+    public Guid? BudgetAccountId { get; set; }
+
     public decimal NumberAccount { get; set; }
 
     public decimal ValueStart { get; set; }
@@ -19,5 +21,5 @@ public partial class Budget
 
     public virtual Area Area { get; set; } = null!;
 
-    public virtual BudgetAccount NumberAccountNavigation { get; set; } = null!;
+    public virtual BudgetAccount? BudgetAccount { get; set; }
 }
