@@ -19,7 +19,12 @@ namespace Server.Controllers
             return StatusCode(StatusCodes.Status200OK, list);
         }
 
-        
+        [HttpGet("{id}")]
+        public ActionResult<Presupuestos.Area> Get(Guid id)
+        {
+            Presupuestos.Area? model = Presupuestos.Area.Get(id);
+            return StatusCode(StatusCodes.Status200OK, model);
+        }
         #endregion
     }
 }
