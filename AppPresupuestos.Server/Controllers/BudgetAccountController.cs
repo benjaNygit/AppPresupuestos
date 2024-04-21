@@ -39,12 +39,15 @@ namespace Server.Controllers
                 using (Presupuestos.Context context = new Presupuestos.Context())
                 {
                     decimal numberAccount = Presupuestos.BudgetAccount.GenerateNumberAccount(model);
+                    if (model.Number == 0)
+                        throw new Exception("Especifique el campo número");
+
                     if (Presupuestos.BudgetAccount.Get(numberAccount) is not null)
                         throw new Exception(string.Format("Ya existe una cuenta presupuestaria con el número de cuenta {0}", numberAccount));
 
                     model.NumberAccount = numberAccount;
                     context.BudgetAccounts.Add(model);
-                    context.SaveChanges();
+                    context.SaveChangesAsync();
                 }
 
                 return StatusCode(StatusCodes.Status201Created, model);

@@ -14,17 +14,17 @@ namespace Presupuestos
 
         public static decimal GenerateNumberAccount(BudgetAccount budgetAccount)
         {
-            if (budgetAccount.BudgetAccountId is not null)
+            if (budgetAccount.BudgetAccountCode is not null)
             {
-                string level = budgetAccount.Level.ToString();
-                if (level.Length > 1)
-                    level = string.Format("0{0}", level);
+                string number = budgetAccount.Number.ToString();
+                if (number.Length < 2)
+                    number = string.Format("0{0}", number);
 
-                return decimal.Parse(string.Format("{0}{1}", budgetAccount.BudgetAccountId, level));
+                return decimal.Parse(string.Format("{0}{1}", budgetAccount.BudgetAccountCode, number));
             }
             else
             {
-                return budgetAccount.Level;
+                return budgetAccount.Number;
             }
         }
 

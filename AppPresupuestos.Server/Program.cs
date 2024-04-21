@@ -1,4 +1,6 @@
 
+using System.Text.Json.Serialization;
+
 namespace AppPresupuestos.Server
 {
     public class Program
@@ -9,7 +11,9 @@ namespace AppPresupuestos.Server
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
+            //Ignorar Ciclos recursivos en json, causado por autoreferencia en models
+            builder.Services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();

@@ -88,10 +88,16 @@ public partial class Context : DbContext
             entity.ToTable("BudgetAccount");
 
             entity.Property(e => e.NumberAccount).HasColumnType("decimal(18, 0)");
+            entity.Property(e => e.BudgetAccountCode).HasColumnType("decimal(18, 0)");
             entity.Property(e => e.Description)
                 .HasMaxLength(100)
                 .IsUnicode(false);
             entity.Property(e => e.Level).HasColumnType("decimal(2, 0)");
+            entity.Property(e => e.Number).HasColumnType("decimal(2, 0)");
+
+            entity.HasOne(d => d.BudgetAccountCodeNavigation).WithMany(p => p.InverseBudgetAccountCodeNavigation)
+                .HasForeignKey(d => d.BudgetAccountCode)
+                .HasConstraintName("FK_BudgetAccount_BudgetAccount");
         });
 
         OnModelCreatingPartial(modelBuilder);
