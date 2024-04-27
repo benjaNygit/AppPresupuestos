@@ -22,4 +22,6 @@ public partial class Budget
     public virtual Area Area { get; set; } = null!;
 
     public virtual BudgetAccount? BudgetAccount { get; set; }
+
+    public virtual ICollection<Voucher> Vouchers { get; set; } = new List<Voucher>();
 }

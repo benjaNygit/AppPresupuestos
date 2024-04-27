@@ -30,6 +30,8 @@ public partial class Context : DbContext
 
     public virtual DbSet<BudgetAccount> BudgetAccounts { get; set; }
 
+    public virtual DbSet<Voucher> Vouchers { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Server=(local);Database=Presupuestos;Trusted_Connection=True;TrustServerCertificate=True;");
@@ -54,10 +56,6 @@ public partial class Context : DbContext
             entity.Property(e => e.Description)
                 .HasMaxLength(100)
                 .IsUnicode(false);
-            entity.Property(e => e.Total)
-                .HasComputedColumnSql("([Value]*[Amount])", false)
-                .HasColumnType("decimal(29, 0)");
-            entity.Property(e => e.Value).HasColumnType("decimal(18, 0)");
         });
 
         modelBuilder.Entity<Budget>(entity =>
@@ -93,6 +91,30 @@ public partial class Context : DbContext
             entity.Property(e => e.Level).HasColumnType("decimal(2, 0)");
             entity.Property(e => e.Number).HasColumnType("decimal(2, 0)");
             entity.Property(e => e.NumberAccount).HasColumnType("decimal(18, 0)");
+        });
+
+        modelBuilder.Entity<Voucher>(entity =>
+        {
+            entity.ToTable("Voucher");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.Amount)
+                .HasMaxLength(10)
+                .IsFixedLength();
+            entity.Property(e => e.Total)
+                .HasComputedColumnSql("([Value]*[Amount])", false)
+                .HasColumnType("decimal(37, 0)");
+            entity.Property(e => e.Value).HasColumnType("decimal(18, 0)");
+
+            entity.HasOne(d => d.Article).WithMany(p => p.Vouchers)
+                .HasForeignKey(d => d.ArticleId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Voucher_Article");
+
+            entity.HasOne(d => d.Gudget).WithMany(p => p.Vouchers)
+                .HasForeignKey(d => d.GudgetId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_Voucher_Budget");
         });
 
         OnModelCreatingPartial(modelBuilder);

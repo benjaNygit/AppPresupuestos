@@ -9,11 +9,5 @@ public partial class Article
 
     public string Description { get; set; } = null!;
 
-    public decimal Value { get; set; }
-
-    public int Amount { get; set; }
-
-    public decimal? Total { get; set; }
-
-    public Guid BudgetId { get; set; }
+    public virtual ICollection<Voucher> Vouchers { get; set; } = new List<Voucher>();
 }
