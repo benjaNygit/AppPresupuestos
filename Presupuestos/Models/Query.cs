@@ -25,6 +25,30 @@ namespace Presupuestos
         }
         #endregion
 
+        #region Budget
+        public static IQueryable<Budget> GetBudgets()
+        {
+            return
+                from query in Context.Instance.Budgets select query;
+        }
+
+        public static IQueryable<Budget> GetBudgets(Guid id)
+        {
+            return
+                from query in Context.Instance.Budgets
+                where query.Id == id
+                select query;
+        }
+
+        public static IQueryable<Budget> GetBudgets(decimal numberAccount)
+        {
+            return
+                from query in Context.Instance.Budgets
+                where query.NumberAccount == numberAccount
+                select query;
+        }
+        #endregion
+
         #region BudgetAccount
         internal static IQueryable<BudgetAccount> GetBudgetAccounts()
         {

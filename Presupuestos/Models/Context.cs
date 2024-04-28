@@ -76,7 +76,7 @@ public partial class Context : DbContext
 
             entity.HasOne(d => d.BudgetAccount).WithMany(p => p.Budgets)
                 .HasForeignKey(d => d.BudgetAccountId)
-                .HasConstraintName("FK_Budget_BudgetAccount1");
+                .HasConstraintName("FK_Budget_BudgetAccount");
         });
 
         modelBuilder.Entity<BudgetAccount>(entity =>

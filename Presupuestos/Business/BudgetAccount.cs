@@ -44,7 +44,7 @@ namespace Presupuestos
             return (
                 from query in Query.GetBudgetAccounts(level, numberAccount)
                 select query
-                ).ToList();
+                ).ToList<BudgetAccount>();
         }
 
         public static List<BudgetAccount> GetLevels(byte level)
@@ -52,7 +52,7 @@ namespace Presupuestos
             return (
                 from query in Query.GetBudgetAccounts(level, null)
                 select query
-                ).ToList();
+                ).ToList<BudgetAccount>();
         }
     }
 }
