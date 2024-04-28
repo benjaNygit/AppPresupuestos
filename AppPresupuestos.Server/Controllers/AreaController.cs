@@ -34,8 +34,64 @@ namespace Server.Controllers
             try
             {
                 Presupuestos.Area model = area;
-                model.Id = Guid.NewGuid();
+                using (Presupuestos.Context context = new Presupuestos.Context())
+                {
+                    model.Id = Guid.NewGuid();
+                    context.Areas.Add(model);
+                    context.SaveChangesAsync();
+                }
+
                 return StatusCode(StatusCodes.Status200OK, model);
+            }catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status409Conflict, ex.Message);
+            }
+        }
+        #endregion
+
+        #region Update
+        [HttpPut("{id}")]
+        public ActionResult<Presupuestos.Area> Put(Guid id, Presupuestos.Area area)
+        {
+            try
+            {
+                Presupuestos.Area? model = Presupuestos.Area.Get(id);
+                using (Presupuestos.Context context = new Presupuestos.Context())
+                {
+                    if (model is null)
+                        throw new Exception("No se encontro el area");
+
+                    model.Description = area.Description;
+
+                    context.Areas.Add(model);
+                    context.SaveChangesAsync();
+                }
+
+                return StatusCode(StatusCodes.Status200OK, model);
+            }catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status409Conflict, ex.Message);
+            }
+        }
+        #endregion
+
+        #region Delete
+        [HttpDelete("{id}")]
+        public ActionResult<Presupuestos.Area> Delete(Guid id)
+        {
+            try
+            {
+                Presupuestos.Area? model = Presupuestos.Area.Get(id);
+                using (Presupuestos.Context context = new Presupuestos.Context())
+                {
+                    if (model is null)
+                        throw new Exception("No se encontro el area");
+
+                    context.Areas.Remove(model);
+                    context.SaveChangesAsync();
+                }
+
+                return StatusCode(StatusCodes.Status202Accepted, string.Format("Se elimino correctamente el area {0}", model.Description));
             }catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status409Conflict, ex.Message);

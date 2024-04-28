@@ -111,8 +111,9 @@ namespace Server.Controllers
 
                     context.BudgetAccounts.Remove(model);
                     context.SaveChangesAsync();
-                    return StatusCode(StatusCodes.Status202Accepted, string.Format("Se elmino correctamente la cuenta presupuestaria número {0}", numberAccount));
                 }
+                
+                return StatusCode(StatusCodes.Status202Accepted, string.Format("Se elmino correctamente la cuenta presupuestaria número {0}", numberAccount));
             }
             catch (Exception ex)
             {
