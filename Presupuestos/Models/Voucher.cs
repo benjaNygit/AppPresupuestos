@@ -9,7 +9,7 @@ public partial class Voucher
 
     public Guid ArticleId { get; set; }
 
-    public Guid GudgetId { get; set; }
+    public Guid BudgetId { get; set; }
 
     public DateOnly Date { get; set; }
 
@@ -21,5 +21,5 @@ public partial class Voucher
 
     public virtual Article Article { get; set; } = null!;
 
-    public virtual Budget Gudget { get; set; } = null!;
+    public virtual Budget Budget { get; set; } = null!;
 }

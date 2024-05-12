@@ -111,8 +111,8 @@ public partial class Context : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Voucher_Article");
 
-            entity.HasOne(d => d.Gudget).WithMany(p => p.Vouchers)
-                .HasForeignKey(d => d.GudgetId)
+            entity.HasOne(d => d.Budget).WithMany(p => p.Vouchers)
+                .HasForeignKey(d => d.BudgetId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Voucher_Budget");
         });
