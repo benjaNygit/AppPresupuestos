@@ -107,5 +107,70 @@ namespace Presupuestos
             return default;
         }
         #endregion
+
+        #region Voucher
+        public static IQueryable<Voucher> GetVouchers()
+        {
+            return from query in Context.Instance.Vouchers select query;
+        }
+
+        public static IQueryable<Voucher> GetVouchers(Guid id)
+        {
+            return
+                from query in Context.Instance.Vouchers
+                where query.Id == id
+                select query;
+        }
+
+        public static IQueryable<Voucher> GetVouchers(Article article)
+        {
+            return
+                from query in Context.Instance.Vouchers
+                where query.Article == article
+                select query;
+        }
+
+        public static IQueryable<Voucher> GetVouchers(Budget budget)
+        {
+            return
+                from query in Context.Instance.Vouchers
+                where query.Budget == budget
+                select query;
+        }
+
+        public static IQueryable<Voucher> GetVouchers(DateOnly date)
+        {
+            return
+                from query in Context.Instance.Vouchers
+                where query.Date == date
+                select query;
+        }
+
+        public static IQueryable<Voucher> GetVouchers(DateOnly date, bool before)
+        {
+            if (before)
+            {
+                return
+                    from query in Context.Instance.Vouchers
+                    where query.Date > date
+                    select query;
+            }
+            else
+            {
+                return
+                    from query in Context.Instance.Vouchers
+                    where query.Date < date
+                    select query;
+            }
+        }
+
+        public static IQueryable<Voucher> GetVouchers(DateOnly startDate, DateOnly endDate)
+        {
+            return
+                from query in Context.Instance.Vouchers
+                where query.Date >= startDate && query.Date <= endDate
+                select query;
+        }
+        #endregion
     }
 }
