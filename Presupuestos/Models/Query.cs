@@ -25,6 +25,22 @@ namespace Presupuestos
         }
         #endregion
 
+        #region Article
+        public static IQueryable<Article> GetArticles()
+        {
+            return
+                from query in Context.Instance.Articles select query;
+        }
+
+        public static IQueryable<Article> GetArticles(Guid id)
+        {
+            return
+                from query in Context.Instance.Articles
+                where query.Id == id
+                select query;
+        }
+        #endregion
+
         #region Budget
         public static IQueryable<Budget> GetBudgets()
         {
